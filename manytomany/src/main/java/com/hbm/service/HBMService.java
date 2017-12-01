@@ -1,5 +1,6 @@
 package com.hbm.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class HBMService {
 	@Autowired
 	private PersonRepository repo;
 	
-	public Person save(Person person) {
+	public List<Person> save(Collection<Person> person) {
 		return repo.save(person);
 	}
 	

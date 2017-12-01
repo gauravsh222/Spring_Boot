@@ -1,33 +1,48 @@
 package com.hbm.model;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="ADDRESS")
+@Table(name = "N2N_ADDRESS")
 public class Address {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="A_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "A_ID")
 	private Integer id;
 
 	private String houseno;
-	
+
 	private String street;
-	
+
 	private String city;
-	
+
+	@ManyToMany(mappedBy = "addresses")
 	@JsonIgnore
-	@ManyToOne
-	private Person person;
+	private Collection<Person> persons;
+
+	
+	public Address(String houseno, String street, String city) {
+		super();
+		this.houseno = houseno;
+		this.street = street;
+		this.city = city;
+	}
+
+	public Address() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -35,14 +50,6 @@ public class Address {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
 	}
 
 	public String getHouseno() {
@@ -68,4 +75,13 @@ public class Address {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public Collection<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(Collection<Person> persons) {
+		this.persons = persons;
+	}
+
 }
